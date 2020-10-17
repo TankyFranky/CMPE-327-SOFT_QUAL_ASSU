@@ -1,4 +1,839 @@
-﻿
+﻿# CMPE327 A1 Web App Test Outline R1 + R4
+| Specification                                                                                                                                            | Test Case ID | Purpose                                                                                                                                                             | Pass Criteria                                                                                   | Client Asks                                                                                                               | Test Overseer     |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|-------------------|
+| R1                                                                                                                                                       |              |                                                                                                                                                                     |                                                                                                 |                                                                                                                           |                   |
+| If the   user hasn't logged in, show the login page                                                                                                      | R1.1.1       | Check if the startup page is /login                                                                                                                                 | When web app is launched /login is displayed                                                    |                                                                                                                           | Francesco Marrato |
+| If the   user hasn't logged in, show the login page                                                                                                      | R1.1.2       | Check if / page is inaccessible if not logged in                                                                                                                    | When web app is launched from the /   location, automatic redirection to /login                 |                                                                                                                           | Francesco Marrato |
+| the   login page has a message that by default says 'please login'                                                                                       | R1.2.1       | Check if the startup page at /login contains the message 'please' login                                                                                             | Search for message element returns True on /login                                               |                                                                                                                           | Francesco Marrato |
+| If the   user has logged in, redirect to the user profile page                                                                                           | R1.3.1       | Check if when the login post succeeds the webpage redirects to /                                                                                                    | Web page / is present after submitting correct login info                                       |                                                                                                                           | Francesco Marrato |
+| If the   user has logged in, redirect to the user profile page                                                                                           | R1.3.2       | Check if when the login post fails the webpage does not perform GET for /                                                                                           | Web page /login is present after submitting incorrect login info                                |                                                                                                                           | Francesco Marrato |
+| The   login page provides a login form which requests two fields: email and   passwords                                                                  | R1.4.1       | Check if login page at /login has minimum 2 inputs with specifications   "email" and "password"                                                                     | Search for input elements with   "email" and "password" identifiers returns True on /login      |                                                                                                                           | Francesco Marrato |
+| The   login form can be submitted as a POST request to the current URL (/login)                                                                          | R1.5.1       | Check if the post request submitted requests / upon succesful request                                                                                               | Web page / is present after submitting correct login info                                       |                                                                                                                           | Francesco Marrato |
+| The   login form can be submitted as a POST request to the current URL (/login)                                                                          | R1.5.2       | Check if the post request submitted requests /login upon failed request                                                                                             | Web page /login is present after submitting incorrect login info                                |                                                                                                                           | Francesco Marrato |
+| Email   and password both cannot be empty                                                                                                                | R1.6.1       | Check if "email" and "password" template inputs are   not empty on /login                                                                                           | error_message is thrown if both input fields are checked to be empty                            | This will include the case where only one is empty                                                                        | Francesco Marrato |
+| Email   has to follow addr-spec defined in RFC 5322                                                                                                      | R1.7.1       | Check if "email" inputs are checked against RFC 5322.   Specifically the 'Invalid Email Addresses' found at:   https://en.wikipedia.org/wiki/Email_address#Examples | email addresses (each with single   fault) all throw errors for not following RFC 5322          |                                                                                                                           | Francesco Marrato |
+| Email   has to follow addr-spec defined in RFC 5322                                                                                                      | R1.7.2       | Check if failure of "email" input against RFC 5322 throws an   error_message                                                                                        | error_message is thrown for email not following RFC 5322                                        |                                                                                                                           | Francesco Marrato |
+| Password   has to meet the required complexity: minimum length 6, at least one upper   case, at least one lower case, and at least one special character | R1.8.1       | Check if "password" inputs passed to password regex pass when   matching outlined criteria                                                                          | password inputs (each with single fault) all throw errors for not   following customer outlines | This should be implemented when a user signs up. Passwords should follow   criteria from initial sign up/password change. | Francesco Marrato |
+| Password   has to meet the required complexity: minimum length 6, at least one upper   case, at least one lower case, and at least one special character | R1.8.2       | Check if failure of "password" inputs against password regex   throws an error_message                                                                              | error message is thrown for failure of password regex                                           |                                                                                                                           | Francesco Marrato |
+| For any   formatting errors, render the login page and show the message 'email/password   format is incorrect.'                                          | R1.9.1       | Check if the /login page is requested [GET] if error_message's have been   generated                                                                                | redirected to /login page after any   email/password error message is thrown                    |                                                                                                                           | Francesco Marrato |
+| For any   formatting errors, render the login page and show the message 'email/password   format is incorrect.'                                          | R1.9.2       | Check if 'pop-up' message is shown on /login page if error_message's have   been shown                                                                              | email/password format is incorrect.' is shown on /login page                                    | Will the message be modified if additional entry fields are added?                                                        | Francesco Marrato |
+| If   email/password are correct, redirect to /                                                                                                           | R1.10.1      | Check if User returns as valid than a redirection to / occurs                                                                                                       | redirection to / occurs                                                                         |                                                                                                                           | Francesco Marrato |
+| Otherwise,   redict to /login and show message 'email/password combination incorrect'                                                                    | R1.11.1      | Check if User returns as invalid than a redirection to /login occurs                                                                                                | redirection to /login occurs                                                                    |                                                                                                                           | Francesco Marrato |
+| Otherwise,   redict to /login and show message 'email/password combination incorrect'                                                                    | R1.11.2      | Check if 'pop-up' message is shown on /login page if error_message's have   been shown                                                                              | pop-up' message is displayed on /login                                                          |                                                                                                                           | Francesco Marrato |
+| R4                                                                                                                                                       |              |                                                                                                                                                                     |                                                                                                 |                                                                                                                           |                   |
+| The page   /sell exists/ is accessible                                                                                                                   | R4.0.1       | Check that page /sell can be accessed                                                                                                                               | Access to /sell redirects to /sell page                                                         | Specified in R3 and was placed here for thoroughness                                                                      |                   |
+| The name   of the ticket has to be alphanumeric-only, and space allowed only if it is   not the first or the last character.                             | R4.1.1       | Check if failure "ticket name" inputs against ticket name regex   causes selling action failure                                                                     | error message is thrown on improper name                                                        |                                                                                                                           | Francesco Marrato |
+| The name   of the ticket is no longer than 60 characters                                                                                                 | R4.2.1       | Check if selling action passes with ticket names shorter than 60   characters                                                                                       | ticket is posted to sell page                                                                   | Should we also enforce a minimum ticket name length?                                                                      | Francesco Marrato |
+| The name   of the ticket is no longer than 60 characters                                                                                                 | R4.2.2       | Check if selling action fails with ticket names longer than 60 characters                                                                                           | error message thrown                                                                            |                                                                                                                           | Francesco Marrato |
+| The   quantity of the tickets has to be more than 0, and less than or equal to 100.                                                                      | R4.3.1       | Check if "ticket quantity" inside of range is accepted by front   end                                                                                               | ticket is posted to sell page                                                                   |                                                                                                                           | Francesco Marrato |
+| The   quantity of the tickets has to be more than 0, and less than or equal to 100.                                                                      | R4.3.2       | Check if "ticket quantity" outside of range causes selling   action failure                                                                                         | error message thrown                                                                            |                                                                                                                           | Francesco Marrato |
+| Price   has to be of range [10, 100]                                                                                                                     | R4.4.1       | Check if "ticket price" inside of range is accepted by front   end                                                                                                  | ticket is posted to sell page                                                                   |                                                                                                                           | Francesco Marrato |
+| Price   has to be of range [10, 100]                                                                                                                     | R4.4.2       | Check if "ticket price" outside of range causes selling action   failure                                                                                            | error message thrown                                                                            |                                                                                                                           | Francesco Marrato |
+| Date   must be given in the format YYYYMMDD (e.g. 20200901)                                                                                              | R4.5.1       | Check if entered date using proper format is accepted by front end                                                                                                  | ticket is posted to sell page                                                                   |                                                                                                                           | Francesco Marrato |
+| Date   must be given in the format YYYYMMDD (e.g. 20200901)                                                                                              | R4.5.2       | Check if entered date using improper format cause selling action failure                                                                                            | error message thrown                                                                            |                                                                                                                           | Francesco Marrato |
+| Date   must be given in the format YYYYMMDD (e.g. 20200901)                                                                                              | R4.5.3       | Check if dates that match the format but do not exists(e.g. Nov 31st)   cause selling action failure                                                                | error message thrown                                                                            |                                                                                                                           |                   |
+| Date   must be given in the format YYYYMMDD (e.g. 20200901)                                                                                              | R4.5.4       | Check if dates that have already passed cause selling action failure                                                                                                | error message thrown                                                                            | Confirm tickets for previous dates are flagged with error messages                                                        | Francesco Marrato |
+| For any   errors, redirect back to / and show an error message                                                                                           | R4.6.1       | Check if when an error message is created a redirection to the / page   occurs                                                                                      | / redirection                                                                                   |                                                                                                                           | Francesco Marrato |
+| For any   errors, redirect back to / and show an error message                                                                                           | R4.6.2       | Check if when an error message is created the message is displayed when a   redirection to / page occurs                                                            | / redirection and error message is displayed                                                    |                                                                                                                           | Francesco Marrato |
+| The   added new ticket information will be posted on the user profile page                                                                               | R4.7.1       | Check if a correctly added ticket and its information is displayed on /   of the user (selling action succeeded)                                                    | ticket is posted to sell page                                                                   |                                                                                                                           | Francesco Marrato |
+| The   added new ticket information will be posted on the user profile page                                                                               | R4.7.2       | Check if the correct number of items in the ticket list is presented (no   overwriting/duplicates)                                                                  | # of selling items on page match # of selling items on users profile                            |                                                                                                                           | Francesco Marrato |
+
+# CMPE327 A1 Web App Test Cases R1 + R4
+## R1 /login
+### Test Case R1.1.1 If the user hasn't logged in, show the login page
+Test Data: None
+Mocking:
+ - Mock backend.get_user to check if user has previously logged in
+
+Actions:
+ - open /logout (invalidate previous login)
+ - run website startup with `python -m qa327`
+ - check URL contains /login using `self.get_current_url()` from Selenium
+### Test Case R1.1.2 If the user hasn't logged in, show the login page
+Test Data: None
+Mocking: 
+ - Mock backend.get_user to check if user has previously logged in
+ 
+Actions:
+ - open /logout (invalidate previous login)
+ - run website startup with `python -m qa327`
+ - open /
+ - check URL contains /login using `self.get_current_url()` from Selenium
+### Test Case R1.2.1 the login page has a message that by default says 'please login'
+Test Data: None
+Mocking:
+ - Mock backend.get_user to check if user has previously logged in
+
+Actions:
+ - run website startup with `python -m qa327`
+ - open /login
+ - Check `#message` element exists and contains message 'please login'
+
+### Test Case R1.3.1 If the user has logged in, redirect to the user profile page
+Test Data: 
+```
+test_user = User(
+	email='test_frontend@test.com',
+	name='test_frontend',
+	password=generate_password_hash('test_frontend')
+	)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+
+Actions:
+
+-   open /logout (to invalidate any logged-in sessions that may exist)
+-   open /login
+-   enter test_user's email into element  `#email`
+-   enter test_user's password into element  `#password`
+-   click element  `input[type="submit"]`
+-   open /login again
+-   validate that current page contains  `#welcome-header`  element
+
+### Test Case R1.3.2 If the user has logged in, redirect to the user profile page/
+Test Data:
+```
+test_user = User(
+	email='test_frontend@test.com',
+	name='test_frontend',
+	password= # Purposefully cause password failure
+	)
+```
+Mocking:
+- Mock backend.get_user to return a False test_user instance
+- Mock backend.login_user to return a failed login
+
+Actions:
+open /logout (to invalidate any logged-in sessions that may exist)
+- open /login
+- enter test_user's email into element  `#email`
+- enter test_user's password into element  `#password`
+- click element  `input[type="submit"]`
+- check URL does not end at / using `self.get_current_url()` from Selenium
+### Test Case R1.4.1 The login page provides a login form which requests two fields: email and passwords
+Test Data: None
+Mocking: None
+Actions:
+- open /logout (invalidate previous login)
+ - run website startup with `python -m qa327`
+ - check URL contains /login using `self.get_current_url()` from Selenium
+ - validate that the current URL contains two elements `#email` and `#password`
+ - validate that elements `#email` and `#password` are both input elements
+
+### Test Case R1.5.1 The login form can be submitted as a POST request to the current URL (/login)
+Test Data:
+```
+test_user = User(
+	email='test_frontend@test.com',
+	name='test_frontend',
+	password=generate_password_hash('test_frontend')
+	)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-  Mock backend.login_user to return a successful login
+
+Actions:
+- open /login
+- enter test_user's email into element  `#email`
+- enter test_user's password into element  `#password`
+- click element  `input[type="submit"]`
+- verify that 'POST' method type is submitted from /login route
+- check URL is at / using `self.get_current_url()` from Selenium
+
+### Test Case R1.5.2 The login form can be submitted as a POST request to the current URL (/login)
+follow Test Case R1.3.2 If the user has logged in, redirect to the user profile page/
+
+### Test Case R1.6.1 Email and password both cannot be empty
+Test Data:
+None
+Mocking:
+-   Mock backend.login_user to return a failed login attempt
+
+Actions:
+- open /login
+- enter blank email into element  `#email`
+- enter blank password into element  `#password`
+- click element  `input[type="submit"]`
+- verify failed login request is received
+- verify error_message is displayed on /login
+
+### Test Case R1.7.1 Email has to follow addr-spec defined in RFC 5322
+Test Data:
+```
+test_user = User(
+	email='test_frontend@test.com', # Change emails to match failure examples at link (on login)
+	name='test_frontend',
+	password=generate_password_hash('test_frontend')
+	)
+	# https://en.wikipedia.org/wiki/Email_address#Examples
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.login_user to return a successful/failed login attempt
+
+Actions:
+- open /login
+- enter test_user's email into element  `#email` (will be repeated with many valid/invalid emails)
+- enter test_user's password into element  `#password`
+- click element  `input[type="submit"]`
+- verify that the RFC 5322 REGEX is being used within `frontend.login_post()`
+- verify error message is generated by `frontend.login_post()` on invalid emails
+
+### Test Case R1.7.2 Email has to follow addr-spec defined in RFC 5322
+Test Data:
+```
+test_user = User(
+	email='test_frontend@test.com', # Change emails to match failure examples at link (on login)
+	name='test_frontend',
+	password=generate_password_hash('test_frontend')
+	)
+	# https://en.wikipedia.org/wiki/Email_address#Examples
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.login_user to return a successful/failed login attempt
+
+Actions:
+- open /login
+- enter test_user's email into element  `#email` (will be repeated with many invalid email variations)
+- enter test_user's password into element  `#password`
+- click element  `input[type="submit"]`
+- verify for each example of invalid emails from RFC 5322 that an error_message is thrown from `frontend.login_post()`
+
+### Test Case R1.8.1 Password has to meet the required complexity: minimum length 6, at least one upper case, at least one lower case, and at least one special character
+Test Data:
+```
+test_user = User(
+	email='test_frontend@test.com',
+	name='test_frontend',
+	password=generate_password_hash('test_frontend') # Password will change to either 
+													# follow or contradict customer outlines 
+	)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.login_user to return a successful/failed login attempt
+
+Actions:
+- open /login
+- enter test_user's email into element  `#email` 
+- enter test_user's password into element  `#password` (will be repeated with many invalid password variations)
+- click element  `input[type="submit"]`
+- verify that the  password_regex is being used within `frontend.login_post()`, following the customers password guidelines
+- verify error message is generated by `frontend.login_post()` on invalid passwords 
+
+### Test Case R1.8.2 Password has to meet the required complexity: minimum length 6, at least one upper case, at least one lower case, and at least one special character
+Test Data:
+```
+test_user = User(
+	email='test_frontend@test.com',
+	name='test_frontend',
+	password=generate_password_hash('test_frontend') # Password will change to either 
+													# follow or contradict customer outlines 
+	)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.login_user to return a successful/failed login attempt
+
+Actions:
+- open /login
+- enter test_user's email into element  `#email` 
+- enter test_user's password into element  `#password` (will be repeated with many invalid password variations)
+- click element  `input[type="submit"]`
+- verify error message is generated by `frontend.login_post()` on each case of invalid passwords
+
+### Test Case R1.9.1 For any formatting errors, render the login page and show the message 'email/password format is incorrect.'
+Test Data:
+```
+test_user = User(
+	email='test_frontend@test.com',		# Change emails to match failure examples at link (on login)
+	name='test_frontend',
+	password=generate_password_hash('test_frontend') # Password will change to either 
+													# follow or contradict customer outlines
+													
+	# https://en.wikipedia.org/wiki/Email_address#Examples 
+	)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.login_user to return a failed login attempt for password or email
+
+Actions:
+- open /login
+- enter test_user's email into element  `#email` (will be repeated with many invalid email variations)
+- enter test_user's password into element  `#password` (will be repeated with many invalid password variations)
+- click element  `input[type="submit"]`
+- verify redirection to /login occurs after error_message is thrown from `frontend.login_post()`
+
+### Test Case R1.9.2 For any formatting errors, render the login page and show the message 'email/password format is incorrect.'
+Test Data:
+```
+test_user = User(
+	email='test_frontend@test.com',		# Change emails to match failure examples at link (on login)
+	name='test_frontend',
+	password=generate_password_hash('test_frontend') # Password will change to either 
+													# follow or contradict customer outlines
+													
+	# https://en.wikipedia.org/wiki/Email_address#Examples 
+	)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.login_user to return a failed login attempt for password or email
+
+Actions:
+- open /login
+- enter test_user's email into element  `#email` (will be repeated with many invalid email variations)
+- enter test_user's password into element  `#password` (will be repeated with many invalid password variations)
+- click element  `input[type="submit"]`
+- verify error_message is visible on /login using `self.is_text_visible(text,slector, by)` from Selenium
+
+### Test Case R1.10.1 If email/password are correct, redirect to /
+Test Data:
+```
+test_user = User(
+	email='test_frontend@test.com',
+	name='test_frontend',
+	password=generate_password_hash('test_frontend')
+	)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.login_user to return a successful login attempt for password or email
+
+Actions:
+- open /login
+- enter test_user's email into element  `#email`
+- enter test_user's password into element  `#password`
+- click element  `input[type="submit"]`
+- check if after redirection URL end with / (home page) using `self.get_current_url()` from Selenium
+
+### Test Case R1.11.1 Otherwise, redict to /login and show message 'email/password combination incorrect'
+Test Data:
+```
+test_user = User(
+	email='test_frontend@test.com',		# Change emails to match failure examples at link (on login)
+	name='test_frontend',
+	password=generate_password_hash('test_frontend') # Password will change to either 
+													# follow or contradict customer outlines
+													
+	# https://en.wikipedia.org/wiki/Email_address#Examples 
+	)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.login_user to return a failed login attempt for password or email
+
+Actions:
+- open /login
+- enter wrong email into element  `#email`
+- enter wrong password into element  `#password`
+- click element  `input[type="submit"]`
+- verify an error_message is generated from `frontend.login_post()`
+- check if after redirection URL end with /login using `self.get_current_url()` from Selenium
+
+
+### Test Case R1.11.2 Otherwise, redict to /login and show message 'email/password combination incorrect'
+Test Data:
+```
+test_user = User(
+	email='test_frontend@test.com',		# Change emails to match failure examples at link (on login)
+	name='test_frontend',
+	password=generate_password_hash('test_frontend') # Password will change to either 
+													# follow or contradict customer outlines
+													
+	# https://en.wikipedia.org/wiki/Email_address#Examples 
+	)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.login_user to return a failed login attempt for password or email
+
+Actions:
+- open /login
+- enter wrong email into element  `#email`
+- enter wrong password into element  `#password`
+- click element  `input[type="submit"]`
+- verify an error_message is generated from `frontend.login_post()`
+- verify error_message is visible on /login using `self.is_text_visible(text,slector, by)` from Selenium 
+ 
+## R4 /sell
+### Test Case R4.0.1 The page /sell exists/is accessible
+Test Data: None
+
+Mocking: None
+-   Mock backend.get_user to return a test_user instance
+Actions:
+- open /sell page
+- check URL contains /sell using `self.get_current_url()` from Selenium
+
+### Test Case R4.1.1 The name of the ticket has to be alphanumeric-only, and space allowed only if it is not the first or the last character.
+Test Data:
+```
+test_ticket = Ticket(
+    owner='test_frontend@test.com',
+    name='test_ticket_yo',# Use non-alphanumeric ticket names
+    quantity=10,
+    price=10,
+    date='20200901'
+)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.create_ticket to return a test_ticket instance
+
+Actions:
+-   open /logout (to invalidate any logged-in sessions that may exist)
+-   open /login
+-   enter test_user's email into element  `#email`
+-   enter test_user's password into element  `#password`
+-   click element  `input[type="submit"]`
+-   open /sell
+-   enter test_ticket's name into element  `#sell_name`, with a non-alphanumeric instance
+-   enter test_ticket's quantity into element  `#sell_quantity`
+-  enter test_ticket's price into element  `#sell_price`
+- enter test_ticket's date into element`#sell_date`
+-   click element  `#sell_submit`
+- validate that ticket name REGEX identifies non-alphanumeric and throws error_message
+-   validate that the  `#sell_message`  element shows  `failed`
+
+### Test Case R4.2.1 The name of the ticket is no longer than 60 characters
+Test Data:
+```
+test_ticket = Ticket(
+    owner='test_frontend@test.com',
+    name='test_ticket_yo',# Ticket name used should be less than 60 characters
+    quantity=10,
+    price=10,
+    date='20200901'
+)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.create_ticket to return a test_ticket instance
+
+Actions:
+-   open /logout (to invalidate any logged-in sessions that may exist)
+-   open /login
+-   enter test_user's email into element  `#email`
+-   enter test_user's password into element  `#password`
+-   click element  `input[type="submit"]`
+-   open /sell
+-   enter test_ticket's name into element  `#sell_name`
+-   enter test_ticket's quantity into element  `#sell_quantity`
+-  enter test_ticket's price into element  `#sell_price`
+- enter test_ticket's date into element`#sell_date`
+-   click element  `#sell_submit`
+-  validate that selling action was successful
+- validate that the  `#sell_message`  element shows  `successful`
+-
+### Test Case R4.2.2 The name of the ticket is no longer than 60 characters
+Test Data:
+```
+test_ticket = Ticket(
+    owner='test_frontend@test.com',
+    name='test_ticket_yo',# Ticket name used should be greater than 60 characters
+    quantity=10,
+    price=10,
+    date='20200901'
+)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.create_ticket to return a test_ticket instance
+
+Actions:
+-   open /logout (to invalidate any logged-in sessions that may exist)
+-   open /login
+-   enter test_user's email into element  `#email`
+-   enter test_user's password into element  `#password`
+-   click element  `input[type="submit"]`
+-   open /sell
+-   enter test_ticket's name into element  `#sell_name`
+-   enter test_ticket's quantity into element  `#sell_quantity`
+-  enter test_ticket's price into element  `#sell_price`
+- enter test_ticket's date into element`#sell_date`
+-   click element  `#sell_submit`
+-  validate that selling action was unsuccessful
+- validate that the  `#sell_message`  element shows  `failed`
+
+### Test Case R4.3.1 The quantity of the tickets has to be more than 0, and less than or equal to 100.
+Test Data:
+```
+test_ticket = Ticket(
+    owner='test_frontend@test.com',
+    name='test_ticket_yo',
+    quantity=10,# ticket quantity inside of range
+    price=10,
+    date='20200901'
+)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.create_ticket to return a test_ticket instance
+
+Actions:
+-   open /logout (to invalidate any logged-in sessions that may exist)
+-   open /login
+-   enter test_user's email into element  `#email`
+-   enter test_user's password into element  `#password`
+-   click element  `input[type="submit"]`
+-   open /sell
+-   enter test_ticket's name into element  `#sell_name`
+-   enter test_ticket's quantity into element  `#sell_quantity`
+-  enter test_ticket's price into element  `#sell_price`
+- enter test_ticket's date into element`#sell_date`
+-   click element  `#sell_submit`
+-  validate that selling action was successful
+-  validate that the  `#sell_message`  element shows  `successful`
+
+### Test Case R4.3.2 The quantity of the tickets has to be more than 0, and less than or equal to 100.
+Test Data:
+```
+test_ticket = Ticket(
+    owner='test_frontend@test.com',
+    name='test_ticket_yo',
+    quantity=20, # ticket quantity outside of range
+    price=10,
+    date='20200901'
+)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.create_ticket to return a test_ticket instance
+
+Actions:
+-   open /logout (to invalidate any logged-in sessions that may exist)
+-   open /login
+-   enter test_user's email into element  `#email`
+-   enter test_user's password into element  `#password`
+-   click element  `input[type="submit"]`
+-   open /sell
+-   enter test_ticket's name into element  `#sell_name`
+-   enter test_ticket's quantity into element  `#sell_quantity`
+-  enter test_ticket's price into element  `#sell_price`
+- enter test_ticket's date into element`#sell_date`
+-   click element  `#sell_submit`
+- validate that ticket count check identifies out of range and throws error_message
+-  validate that selling action was unsuccessful
+-  validate that the  `#sell_message`  element shows  `failed`
+
+### Test Case R4.4.1 Price has to be of range [10, 100]
+Test Data:
+```
+test_ticket = Ticket(
+    owner='test_frontend@test.com',
+    name='test_ticket_yo',
+    quantity=20, 
+    price=10, # price is inside required range
+    date='20200901'
+)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.create_ticket to return a test_ticket instance
+
+Actions:
+-   open /logout (to invalidate any logged-in sessions that may exist)
+-   open /login
+-   enter test_user's email into element  `#email`
+-   enter test_user's password into element  `#password`
+-   click element  `input[type="submit"]`
+-   open /sell
+-   enter test_ticket's name into element  `#sell_name`
+-   enter test_ticket's quantity into element  `#sell_quantity`
+-  enter test_ticket's price into element  `#sell_price`
+- enter test_ticket's date into element`#sell_date`
+-   click element  `#sell_submit`
+-  validate that selling action was successful
+-  validate that the  `#sell_message`  element shows  `successful`
+
+### Test Case R4.4.2 Price has to be of range [10, 100]
+Test Data:
+```
+test_ticket = Ticket(
+    owner='test_frontend@test.com',
+    name='test_ticket_yo',
+    quantity=20, 
+    price=200, # price is outside required range
+    date='20200901'
+)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.create_ticket to return a test_ticket instance
+
+Actions:
+-   open /logout (to invalidate any logged-in sessions that may exist)
+-   open /login
+-   enter test_user's email into element  `#email`
+-   enter test_user's password into element  `#password`
+-   click element  `input[type="submit"]`
+-   open /sell
+-   enter test_ticket's name into element  `#sell_name`
+-   enter test_ticket's quantity into element  `#sell_quantity`
+-  enter test_ticket's price into element  `#sell_price`
+- enter test_ticket's date into element`#sell_date`
+-   click element  `#sell_submit`
+-  validate that ticket price check identifies out of range and throws error_message
+-  validate that selling action was unsuccessful
+-  validate that the  `#sell_message`  element shows  `failed`
+
+### Test Case R4.5.1 Date must be given in the format YYYYMMDD (e.g. 20200901)
+Test Data:
+```
+test_ticket = Ticket(
+    owner='test_frontend@test.com',
+    name='test_ticket_yo',
+    quantity=20, 
+    price=20, 
+    date='20200901'
+)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.create_ticket to return a test_ticket instance
+
+Actions:
+-   open /logout (to invalidate any logged-in sessions that may exist)
+-   open /login
+-   enter test_user's email into element  `#email`
+-   enter test_user's password into element  `#password`
+-   click element  `input[type="submit"]`
+-   open /sell
+-   enter test_ticket's name into element  `#sell_name`
+-   enter test_ticket's quantity into element  `#sell_quantity`
+-  enter test_ticket's price into element  `#sell_price`
+- enter test_ticket's date into element`#sell_date`
+-   click element  `#sell_submit`
+-  validate that selling action was successful
+-  validate that the  `#sell_message`  element shows  `successful`
+
+### Test Case R4.5.2 Date must be given in the format YYYYMMDD (e.g. 20200901)
+Test Data:
+```
+test_ticket = Ticket(
+    owner='test_frontend@test.com',
+    name='test_ticket_yo',
+    quantity=20, 
+    price=20, 
+    date='17-10-2020' # improper format is used
+)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.create_ticket to return a test_ticket instance
+
+Actions:
+-   open /logout (to invalidate any logged-in sessions that may exist)
+-   open /login
+-   enter test_user's email into element  `#email`
+-   enter test_user's password into element  `#password`
+-   click element  `input[type="submit"]`
+-   open /sell
+-   enter test_ticket's name into element  `#sell_name`
+-   enter test_ticket's quantity into element  `#sell_quantity`
+-  enter test_ticket's price into element  `#sell_price`
+- enter test_ticket's date into element`#sell_date`
+-   click element  `#sell_submit`
+- validate that ticket date check identifies date entered in wrong format (using python `datetime.datetime()`) and throws error_message
+-  validate that selling action was unsuccessful
+-  validate that the  `#sell_message`  element shows  `failed`
+
+### Test Case R4.5.3 Date must be given in the format YYYYMMDD (e.g. 20200901)
+Test Data:
+```
+test_ticket = Ticket(
+    owner='test_frontend@test.com',
+    name='test_ticket_yo',
+    quantity=200, 
+    price=200, 
+    date='20201131' # correct format is used but date does not exist
+)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.create_ticket to return a test_ticket instance
+
+Actions:
+-   open /logout (to invalidate any logged-in sessions that may exist)
+-   open /login
+-   enter test_user's email into element  `#email`
+-   enter test_user's password into element  `#password`
+-   click element  `input[type="submit"]`
+-   open /sell
+-   enter test_ticket's name into element  `#sell_name`
+-   enter test_ticket's quantity into element  `#sell_quantity`
+-  enter test_ticket's price into element  `#sell_price`
+- enter test_ticket's date into element`#sell_date`
+-   click element  `#sell_submit`
+- validate that ticket date check identifies date entered is not a real date (using python `datetime.datetime()`) and throws error_message
+-  validate that selling action was unsuccessful
+-  validate that the  `#sell_message`  element shows  `failed`
+
+### Test Case R4.5.4 Date must be given in the format YYYYMMDD (e.g. 20200901)
+Test Data:
+```
+test_ticket = Ticket(
+    owner='test_frontend@test.com',
+    name='test_ticket_yo',
+    quantity=200, 
+    price=200, 
+    date='19001002' # correct format is used but date has already passed
+)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.create_ticket to return a test_ticket instance
+
+Actions:
+-   open /logout (to invalidate any logged-in sessions that may exist)
+-   open /login
+-   enter test_user's email into element  `#email`
+-   enter test_user's password into element  `#password`
+-   click element  `input[type="submit"]`
+-   open /sell
+-   enter test_ticket's name into element  `#sell_name`
+-   enter test_ticket's quantity into element  `#sell_quantity`
+-  enter test_ticket's price into element  `#sell_price`
+- enter test_ticket's date into element`#sell_date`
+-   click element  `#sell_submit`
+- validate that ticket date check identifies date entered has already passed (using python `datetime.datetime() and datetime.now()`) and throws error_message
+-  validate that selling action was unsuccessful
+-  validate that the  `#sell_message`  element shows  `failed`
+
+### Test Case R4.6.1 For any errors, redirect back to / and show an error message
+Test Data:
+```
+# ticket must include one formating error to throw error_message
+test_ticket = Ticket(
+    owner='test_frontend@test.com',
+    name='test_ticket_yo',
+    quantity=200, 
+    price=200, 
+    date='19001002' 
+)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.create_ticket to return a test_ticket instance
+
+Actions:
+  - open /logout (to invalidate any logged-in sessions that may exist)
+-   open /login
+-   enter test_user's email into element  `#email`
+-   enter test_user's password into element  `#password`
+-   click element  `input[type="submit"]`
+-   open /sell
+-   enter test_ticket's name into element  `#sell_name`
+-   enter test_ticket's quantity into element  `#sell_quantity`
+-  enter test_ticket's price into element  `#sell_price`
+-  enter test_ticket's date into element`#sell_date`
+-  click element  `#sell_submit`
+- verify an error_message is generated before`backend.create_ticket()`
+- check if after redirection URL end with / (home page) using `self.get_current_url()` from Selenium
+
+### Test Case R4.6.2 For any errors, redirect back to / and show an error message
+Test Data:
+```
+# ticket must include one formating error to throw error_message
+test_ticket = Ticket(
+    owner='test_frontend@test.com',
+    name='test_ticket_yo',
+    quantity=200, 
+    price=200, 
+    date='19001002' # Incorrect date should throw error 
+)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.create_ticket to return a test_ticket instance
+
+Actions:
+ - open /logout (to invalidate any logged-in sessions that may exist)
+-   open /login
+-   enter test_user's email into element  `#email`
+-   enter test_user's password into element  `#password`
+-   click element  `input[type="submit"]`
+-   open /sell
+-   enter test_ticket's name into element  `#sell_name`
+-   enter test_ticket's quantity into element  `#sell_quantity`
+-  enter test_ticket's price into element  `#sell_price`
+-  enter test_ticket's date into element`#sell_date`
+-  click element  `#sell_submit`
+- verify an error_message is generated before`backend.create_ticket()`
+- verify error_message is visible on / (home page) using `self.is_text_visible(text,slector, by)` from Selenium 
+
+### Test Case R4.7.1 The added new ticket information will be posted on the user profile page
+Test Data:
+```
+test_ticket = Ticket(
+    owner='test_frontend@test.com',
+    name='test_ticket_yo',
+    quantity=20, 
+    price=20, 
+    date='20201020' 
+)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.create_ticket to return a test_ticket instance
+
+Actions:
+- open /logout (to invalidate any logged-in sessions that may exist)
+-   open /login
+-   enter test_user's email into element  `#email`
+-   enter test_user's password into element  `#password`
+-   click element  `input[type="submit"]`
+-   open /sell
+-   enter test_ticket's name into element  `#sell_name`
+-   enter test_ticket's quantity into element  `#sell_quantity`
+-  enter test_ticket's price into element  `#sell_price`
+-  enter test_ticket's date into element`#sell_date`
+-  click element  `#sell_submit`
+- validate that the  `#sell_message`  element shows  `successful`
+- validate that a ticket element exists on / (home page/user profile) matching all `#sell_` elements from test ticket 
+
+### Test Case R4.7.2 The added new ticket information will be posted on the user profile page
+Test Data:
+```
+test_ticket = Ticket(
+    owner='test_frontend@test.com',
+    name='test_ticket_yo',
+    quantity=20, 
+    price=20, 
+    date='20201020' 
+)
+```
+Mocking:
+-   Mock backend.get_user to return a test_user instance
+-   Mock backend.create_ticket to return a test_ticket instance
+-   Mock backend.get_tickets_sum to return the toal tickets the user has for sale
+
+Actions:
+- open /logout (to invalidate any logged-in sessions that may exist)
+-   open /login
+-   enter test_user's email into element  `#email`
+-   enter test_user's password into element  `#password`
+-   click element  `input[type="submit"]`
+-   open /sell
+-   enter test_ticket's name into element  `#sell_name`
+-   enter test_ticket's quantity into element  `#sell_quantity`
+-  enter test_ticket's price into element  `#sell_price`
+-  enter test_ticket's date into element`#sell_date`
+-  click element  `#sell_submit`
+- validate that the  `#sell_message`  element shows  `successful`
+- validate that the # of tickets displayed on / is equal to the number of tickets from mock `backend.get_tickets_sum`
+
+#  CMPE327 A1 Web App Test Plan
+## Q3 How are you going to organize different test case code files? (a folder for a specification?)
+
+Test scripting will be divided into folders frontend, backend, and integration, with each folder containing test files related to each requirement/constraint list (R1 /login, R2 /register. Etc.) provided by the customer. These three folders will be stored under qa327_test directory. Test case code files will each begin with ‘test_’ to satisfy the automated test running requirements of Selenium Base. Each test case name will be a condensed version of the test purpose (written in camel case) followed by an underscore and its unique test case numerical identifier. The purpose and expected result for each test case will be included as block comments before the testing code.
+
+
 ## R7.1 - Logout will invalid the current session and redirect to the login page. After logout, the user shouldn't be able to access restricted pages.  
 
 ### Testcase R7.1.1 - Confirm after logout that user is redirected to the login page
