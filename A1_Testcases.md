@@ -1,3 +1,4 @@
+### Test Case Set 2: Get /register
 #### Test Case R2.0.1: If the user has logged in, redirect back to the user profile page /
 Test Data:
 ```
@@ -336,3 +337,109 @@ Actions:
  - click element `input[type="submit"]`
  - validate that the current page contains `h1` with value `Register`
 
+### Test Case Set 3: Get /
+#### Test Case 3.0.1: If the user has not logged in, redirect to the login page /login
+Actions:
+ - open /logout (to invalidate any logged-in sessions that may exist)
+ - open /
+ - validate that current page contains `h1` element with value `Log In`
+#### Test Case 3.0.2: If the user has logged in, do not redirect to /login
+Test Data:
+```
+test_user = User(
+	email='test_frontend@test.com',
+	name='test frontend',
+	password=generate_password_hash('test_frontend')
+)
+```
+
+Mocking:
+ - Mock backend.get_user to return a test_user instance 
+ 
+Actions:
+ - open /logout (to invalidate any logged-in sessions that may exist)
+ - open /login
+ - enter test_user's email into element `#email`
+ - enter test_user's password into element `#password`
+ - click element `input[type="submit"]`
+ - open /
+ - validate that current page contains `#welcome-header` element
+
+#### Test Case 3.1.1: User profile page shows a header `'Hi {}'.format(user.name)`
+Test Data: As in R3.0.2
+
+Mocking:
+ - Mock backend.get_user to return a test_user instance
+
+Actions:
+ - open /logout (to invalidate any logged-in sessions that may exist)
+ - open /login
+ - enter test_user's email into element `#email`
+ - enter test_user's password into element `#password`
+ - click element `input[type="submit"]`
+ - open /
+ - validate that current page contains `h2` element with value `Hi test frontend!`
+
+#### Test Case 3.2.1: User profile page shows user balance.
+Test Data: As in R3.0.2
+
+Mocking:
+ - Mock backend.get_user to return a test_user instance
+
+Actions:
+ - open /logout (to invalidate any logged-in sessions that may exist)
+ - open /login
+ - enter test_user's email into element `#email`
+ - enter test_user's password into element `#password`
+ - click element `input[type="submit"]`
+ - open /
+ - validate that current page contains `#balance` element
+
+#### Test Case 3.3.1: User profile page shows a logout link, pointing to /logout
+Test Data: As in R3.0.2
+
+Mocking:
+ - Mock backend.get_user to return a test_user instance
+
+Actions:
+ - open /logout (to invalidate any logged-in sessions that may exist)
+ - open /login
+ - enter test_user's email into element `#email`
+ - enter test_user's password into element `#password`
+ - click element `input[type="submit"]`
+ - open /
+ - validate that current page contains `a[href='/logout']` element
+
+#### Test Case 3.4.1: User profiles page lists all available tickets, with information including the quantity of each ticket, the owner's email, and the price, for tickets that are not expired
+Test Data: As in 3.0.2; additionally:
+```
+test_ticket = Ticket(
+    owner='test_frontend@test.com',
+    name='test_ticket_yo',
+    quantity=10,
+    price=10,
+    date='20200901'
+)
+```
+Mocking:
+ - Mock backend.get_user to return a test_user instance
+ - Mock backend.get_ticket to return a test_ticket instance
+
+Actions:
+ -  open /logout (to invalidate any logged-in sessions that may exist)
+ - open /login
+ - enter test_user's email into element `#email`
+ - enter test_user's password into element `#password`
+ - click element `input[type="submit"]`
+ - open /
+ - enter test_ticket's name into element `form[#sell_form] input[#sell_name]`
+ - enter test_ticket's quantity into element `form[#sell_form] input[#sell_quantity]`
+ - enter test_ticket's price into element `form[#sell_form] input[#sell_price]`
+ - enter test_ticket's date into element `form[#sell_form] input[#sell_date]`
+ - click element `form[#sell_form] input[#sell_submit]`
+ - open /
+ - validate that there exists a `#ticket-table tr#<x>`such that 
+	 - `#x td.ticket-name` equals test_ticket.name, and
+	 - `#x td.ticket-quantity` equals test_ticket quantity, and
+	 - `#x td.ticket-price` equals test_ticket price, and
+	 - `#x td.ticket-date` equals test_ticket date
