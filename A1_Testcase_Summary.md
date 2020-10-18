@@ -4,18 +4,18 @@
 | otherwise, show the user registration page | R2.1.1 | Check that user registration page is served to a user that is not logged in |
 | the registration page shows a registration form requesting: email, user name, password, password2 | R2.2.1 | Check that "email", "user name", "password", and "password2" elements are present in login page and that they are all form text inputs |
 | The registration form can be submitted as a POST request to the current URL (/register) | R2.3.1 | Check that there is a submit button for registration |
-| Email, password, password2 all have to satisfy the same required as defined in R1 | R2.4.1 | Email cannot be empty |
-| | R2.4.2 | Password cannot be empty |
-| | R2.4.3 | Email must not fail to conform to RFC 5322 |
-| | R2.4.4 | Email must conform to RFC 5322 |
-| | R2.4.5 | Password has to meet the required complexity: minimum length 6, at least one upper case, at least one lower case, and at least one special character - negative |
-| | R2.4.6 | Password has to meet the required complexity: minimum length 6, at least one upper case, at least one lower case, and at least one special character |
-| Password and password2 have to be exactly the same | R2.5.1 | Check if password and password2 different fails to register |
+| Email, password, password2 all have to satisfy the same required as defined in R1 | R2.4.1 | Check that registration fails if email is empty |
+| | R2.4.2 | Check that registration fails if password is empty |
+| | R2.4.3 | Check that registration fails if email does not conform to RFC 5322 |
+| | R2.4.4 | Check that registration succeeds while email conforms to RFC 5322 |
+| | R2.4.5 | Check that registration fails when password is shorter than 6 chars or has no upper case char or has no lower case char or has no special character |
+| | R2.4.6 | Check that registration succeeds while password is at least 6 chars and has an upper case, lower case, and special character |
+| Password and password2 have to be exactly the same | R2.5.1 | Check that registration fails when password and password2 are different |
 | User name has to be non-empty, alphanumeric-only, and space allowed only if it is not the first or the last character. | R2.6.1 | Check that registration fails if name is empty or name contains non-alphanumeric chars or has a space as first or last char |
 | User name has to be longer than 2 characters and less than 20 characters | R2.7.1 | Check registration fails if username is too short or too long |
 | For any formatting errors, redirect back to /login and show message '{} format is incorrect.'.format(the_corresponding_attribute) | R2.8.1 | Check redirect and error message |
-| If the email already exists, show message 'this email has been ALREADY used' | R2.9.1 | Check email not already in use |
-| If no error regarding the inputs following the rules above, create a new user, set the balance to 5000, and go back to the /login page | R2.10.1 | Check user created properly |
+| If the email already exists, show message 'this email has been ALREADY used' | R2.9.1 | Check registration fails while email not already in use with special error message |
+| If no error regarding the inputs following the rules above, create a new user, set the balance to 5000, and go back to the /login page | R2.10.1 | Check successful registration creates user and proceeds to /login |
 | | R2.10.2 | Check user not created on improper form |
 | If the user is not logged in, redirect to login page | R3.0.1 | Check user not logged in redirect to /login |
 | | R3.0.2 | Check user logged in does not redirect |
