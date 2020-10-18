@@ -21,5 +21,5 @@
 | | R3.0.2 | Check user logged in does not redirect |
 | This page shows a header `'Hi {}'.format(user.name)` | R3.1.1 | Check element present containing welcome message `Hi <user.name>` |
 | This page shows user balance. | R3.2.1 | Check element present containing user balance |
-| This page shows a logout link, pointing to /logout | 3.3.1 | Check element present containing link to /logout |
+| This page shows a logout link, pointing to /logout | R3.3.1 | Check element present containing link to /logout |
 | This page lists all available tickets. Information including the quantity of each ticket, the owner's email, and the price, for tickets that are not expired | R3.4.1 | Check table row present matching a non expired ticket in the database |
