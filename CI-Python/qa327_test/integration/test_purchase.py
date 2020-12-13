@@ -55,7 +55,7 @@ class IntegrationPurchaseTest(BaseCase):
         self.type("#sell_ticket_price", "20")
         self.type("#sell_ticket_date", future_date)  # use date that is ahead of today's date
         self.click('input[id="sell_btn-submit"]')
-
+        x='PurchaseTestTicket%20%15%' + format_date + '%user@domain.com'
         # Check for posted ticket in table
         self.driver.find_element_by_id('PurchaseTestTicket%20%15%' + format_date + '%user@domain.com')
 

@@ -236,7 +236,7 @@ def sell_tickets():
     ticket_name = request.form.get('sell_ticket_name')
     num_tickets = request.form.get('sell_num_tickets')
     ticket_price = request.form.get('sell_ticket_price')
-    ticket_date = request.form.get('sell_ticket_date')
+    ticket_date = str(request.form.get('sell_ticket_date'))
 
     # Check if the inputs are following correct format
     error_message = ticket_info_sanitizer(ticket_name, num_tickets, ticket_price = ticket_price, date=ticket_date)

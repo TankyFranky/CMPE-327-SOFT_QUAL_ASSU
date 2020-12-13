@@ -22,27 +22,43 @@ format_date = dateTime.strftime("%Y-%m-%d")
 
 
 @pytest.mark.usefixtures('server')
-@patch('qa327.backend.get_user', return_value=test_user)
+#@patch('qa327.backend.get_user', return_value=test_user)
 class IntegrationPostingTest(BaseCase):
+
+    def register(self):
+        """register new user"""
+        self.open(base_url + '/register')
+        self.type("#email", "test0@test.com")
+        self.type("#name", "test0")
+        self.type("#password", "Test0000#")
+        self.type("#password2", "Test0000#")
+        self.click('input[type="submit"]')
+
+    def login(self):
+        """ Login to Swag Labs and verify that login was successful. """
+        self.open(base_url + '/login')
+        self.type("#email", "test0@test.com")
+        self.type("#password", "Test0000#")
+        self.click('input[type="submit"]')
+
 
     def test_posting(self, *_):
         """
         Test that user can post a ticket for sale, using full system from login through logout
         """
-
+        self.register()
+        self.login()
+        self.open(base_url)
+        self.assert_element("#welcome-header")
+        self.assert_text("Welcome test0", "#welcome-header")
         # log in patched user
-        self.open(base_url + '/login')
-        self.type('#email', 'user@domain.com')
-        self.type('#password', 'Password!1')
-        self.click('input[type="submit"]')
-
         # post a ticket for sale
         self.type("#sell_ticket_name", "PostingTestTicket")
         self.type("#sell_num_tickets", "15")
         self.type("#sell_ticket_price", "15")
         self.type("#sell_ticket_date", future_date)  # use date that is ahead of today's date
         self.click('input[id="sell_btn-submit"]')
-
+        x='PostingTestTicket%15%15%' + format_date + '%user@domain.com'
         # Check for posted ticket in table
         self.driver.find_element_by_id('PostingTestTicket%15%15%' + format_date + '%user@domain.com')
 
